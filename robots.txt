@@ -1,0 +1,4 @@
+Sitemap: http://bennyrowland.github.io/sitemapindex.xml
+
+User-Agent: *
+Host: bennyrowland.github.io
