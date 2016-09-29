@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://bennyrowland.github.io/</loc>
-  <lastmod>2016-09-27T20:13:00Z</lastmod>
+  <lastmod>2016-09-29T13:51:00Z</lastmod>
  </url>
  <url>
   <loc>http://bennyrowland.github.io/2016/</loc>
@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>http://bennyrowland.github.io/archive.html</loc>
-  <lastmod>2016-09-27T20:13:00Z</lastmod>
+  <lastmod>2016-09-29T14:12:00Z</lastmod>
  </url>
  <url>
   <loc>http://bennyrowland.github.io/categories/</loc>
@@ -32,5 +32,17 @@
  <url>
   <loc>http://bennyrowland.github.io/posts/hello-and-welcome/</loc>
   <lastmod>2016-09-27T20:13:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://bennyrowland.github.io/projects/</loc>
+  <lastmod>2016-09-28T15:32:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://bennyrowland.github.io/projects/suspect/</loc>
+  <lastmod>2016-09-28T15:32:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://bennyrowland.github.io/stories/publications/</loc>
+  <lastmod>2016-09-29T13:51:00Z</lastmod>
  </url>
 </urlset>

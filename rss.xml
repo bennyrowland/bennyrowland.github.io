@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Suspect Research</title><link>http://bennyrowland.github.io/</link><description>Scientific programming in Python and lessons learned along the way</description><atom:link type="application/rss+xml" href="http://bennyrowland.github.io/rss.xml" rel="self"></atom:link><language>en</language><lastBuildDate>Tue, 27 Sep 2016 20:13:36 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hello and Welcome</title><link>http://bennyrowland.github.io/posts/hello-and-welcome/</link><dc:creator>Ben Rowland</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Suspect Research</title><link>http://bennyrowland.github.io/</link><description>Scientific programming in Python and lessons learned along the way</description><atom:link rel="self" type="application/rss+xml" href="http://bennyrowland.github.io/rss.xml"></atom:link><language>en</language><lastBuildDate>Wed, 28 Sep 2016 22:30:17 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hello and Welcome</title><link>http://bennyrowland.github.io/posts/hello-and-welcome/</link><dc:creator>Ben Rowland</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
@@ -7,7 +7,27 @@
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Write your post here.&lt;/p&gt;
+&lt;p&gt;Like most of the other researchers I know, I spend a lot of my time writing code, or reading other people's. But, again like most of my fellows, a lack of formal training, combined with the absence of any development infrastructure in the lab, tends to produce a lot of bad habits like code duplication, re-inventing the wheel and lack of comments.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;I have spent the last six months converting much of the code I have produced during my research career to date from a messy accumulation of scripts and snippets into &lt;a href="https://github.com/openmrslab/suspect"&gt;Suspect&lt;/a&gt;, an open-source Python package with documentation, unit tests and even meaningful commit messages! Along the way I have also picked up some odds and ends about continuous integration, automated deployment and containerisation, among other things from the DevOps world.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The journey is far from over, but in the hope that it might be useful for others, or at least as a &lt;a href="http://www.commitstrip.com/en/2016/01/18/what-idiot-wrote-this-code/"&gt;favour to my future self&lt;/a&gt;, I am going to be writing about some of the things I have learned.&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;

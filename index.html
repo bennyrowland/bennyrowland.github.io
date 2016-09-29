@@ -5,11 +5,7 @@
 <meta name="description" content="Scientific programming in Python and lessons learned along the way">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suspect Research</title>
-<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="assets/css/rst.css" rel="stylesheet" type="text/css">
-<link href="assets/css/code.css" rel="stylesheet" type="text/css">
-<link href="assets/css/colorbox.css" rel="stylesheet" type="text/css">
-<link href="assets/css/theme.css" rel="stylesheet" type="text/css">
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <link href="assets/css/ipython.min.css" rel="stylesheet" type="text/css">
 <link href="assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta content="#5670d4" name="theme-color">
@@ -46,7 +42,10 @@
 <a href="categories/">Tags</a>
                 </li>
 <li>
-<a href="rss.xml">RSS feed</a>
+<a href="projects/">Projects</a>
+                </li>
+<li>
+<a href="stories/publications/">Publications</a>
 
                 
             </li>
@@ -87,7 +86,27 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Write your post here.</p>
+<p>Like most of the other researchers I know, I spend a lot of my time writing code, or reading other people's. But, again like most of my fellows, a lack of formal training, combined with the absence of any development infrastructure in the lab, tends to produce a lot of bad habits like code duplication, re-inventing the wheel and lack of comments.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I have spent the last six months converting much of the code I have produced during my research career to date from a messy accumulation of scripts and snippets into <a href="https://github.com/openmrslab/suspect">Suspect</a>, an open-source Python package with documentation, unit tests and even meaningful commit messages! Along the way I have also picked up some odds and ends about continuous integration, automated deployment and containerisation, among other things from the DevOps world.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The journey is far from over, but in the hope that it might be useful for others, or at least as a <a href="http://www.commitstrip.com/en/2016/01/18/what-idiot-wrote-this-code/">favour to my future self</a>, I am going to be writing about some of the things I have learned.</p>
 
 </div>
 </div>
@@ -116,7 +135,7 @@
 </div>
 
 
-            <script src="assets/js/jquery.min.js"></script><script src="assets/js/bootstrap.min.js"></script><script src="assets/js/moment-with-locales.min.js"></script><script src="assets/js/fancydates.js"></script><script src="assets/js/jquery.colorbox-min.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+            <script src="assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
     moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates -->
