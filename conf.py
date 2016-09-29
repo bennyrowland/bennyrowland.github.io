@@ -134,7 +134,8 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ("/archive.html", "Archive"),
         ("/categories/", "Tags"),
-        ("/rss.xml", "RSS feed"),
+        ("/projects/", "Projects"),
+        ("/stories/publications/", "Publications"),
     ),
 }
 
@@ -183,6 +184,7 @@ PAGES = (
     ("stories/*.txt", "stories", "story.tmpl"),
     ("stories/*.html", "stories", "story.tmpl"),
     ("stories/*.ipynb", "stories", "story.tmpl"),
+    ("projects/*.rst", "projects", "project.tmpl"),
 )
 
 
@@ -1217,9 +1219,15 @@ UNSLUGIFY_TITLES = True
 
 # Put in global_context things you want available on all your templates.
 # It can be anything, data, functions, modules, etc.
-GLOBAL_CONTEXT = {}
+GLOBAL_CONTEXT = {
+    "blog_sidebar": 
+    """
+    """
+}
 
 # Add functions here and they will be called with template
 # GLOBAL_CONTEXT as parameter when the template is about to be
 # rendered
 GLOBAL_CONTEXT_FILLER = []
+
+PROJECT_PATH = "projects"
