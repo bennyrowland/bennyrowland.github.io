@@ -2,16 +2,22 @@
 <html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="Scientific programming in Python and lessons learned along the way">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Suspect Research</title>
-<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link href="assets/css/ipython.min.css" rel="stylesheet" type="text/css">
-<link href="assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<title>Creating an open source Python project Part 1: Laying the foundations | Suspect Research</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta content="#5670d4" name="theme-color">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
-<link rel="canonical" href="http://bennyrowland.github.io/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/" type="text/html">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ben Rowland">
+<link rel="prev" href="../hello-and-welcome/" title="Hello and Welcome" type="text/html">
+<meta property="og:site_name" content="Suspect Research">
+<meta property="og:title" content="Creating an open source Python project Part 1: Laying the foundations">
+<meta property="og:url" content="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/">
+<meta property="og:description" content="I recently started work on a new open source Python project: Pylcmodel. LCModel is a widely used tool in the MRS community with an incredibly restrictive license tied to a specific CPU. Pylcmodel prov">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2016-09-30T19:08:03Z">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -36,21 +42,27 @@
         <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
-<a href="archive.html">Archive</a>
+<a href="../../archive.html">Archive</a>
                 </li>
 <li>
-<a href="categories/">Tags</a>
+<a href="../../categories/">Tags</a>
                 </li>
 <li>
-<a href="projects/">Projects</a>
+<a href="../../projects/">Projects</a>
                 </li>
 <li>
-<a href="stories/publications/">Publications</a>
+<a href="../../stories/publications/">Publications</a>
 
                 
             </li>
 </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="index.ipynb" id="sourcelink">Source</a>
+    </li>
+
+                
+            </ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -61,23 +73,26 @@
         <div class="row">
             
             
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Creating an open source Python project Part 1: Laying the foundations</a></h1>
 
-    
-<div class="postindex">
-    <article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/" class="u-url">Creating an open source Python project Part 1: Laying the foundations</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn">
-                Ben Rowland
+                    Ben Rowland
             </span></p>
-            <p class="dateline"><a href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/" rel="bookmark"><time class="published dt-published" datetime="2016-09-30T19:08:03Z" title="2016-09-30 19:08">2016-09-30 19:08</time></a></p>
+            <p class="dateline"><a href="." rel="bookmark"><time class="published dt-published" datetime="2016-09-30T19:08:03Z" itemprop="datePublished" title="2016-09-30 19:08">2016-09-30 19:08</time></a></p>
                 <p class="commentline">
         
-    <a href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#disqus_thread" data-disqus-identifier="cache/posts/creating-an-open-source-python-project-part-1-laying-the-foundations.html">Comments</a>
+    <a href="#disqus_thread" data-disqus-identifier="cache/posts/creating-an-open-source-python-project-part-1-laying-the-foundations.html">Comments</a>
 
 
+            
         </p>
-</div>
-    </header><div class="e-content entry-content">
+<p class="sourceline"><a href="index.ipynb" id="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
     <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
@@ -88,7 +103,7 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>I recently started work on a new open source Python project: Pylcmodel. LCModel is a widely used tool in the MRS community with an incredibly restrictive license tied to a specific CPU. Pylcmodel provides a local command line script with the same interface as LCModel, then forwards the data and commands over SSH to the remote machine where the real LCModel is installed, and brings the results back the same way.</p>
 <p>The tool itself will be of very little interest to anybody outside of MRS, but what may be more interesting is the process of putting together a Python project, writing documentation, running tests and sharing it with the community. When I started putting together my first Python package - Suspect - I read lots of (often conflicting) advice from dozens of articles and blog posts, but never found anything that offered the complete picture. This time around, I feel like I have learned a thing or two, and can share some tips. Over the next several posts, I will be detailing all the steps I go through as I build the Pylcmodel package.</p>
-<h4 id="An-outline-of-a-project">An outline of a project<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#An-outline-of-a-project">¶</a>
+<h4 id="An-outline-of-a-project">An outline of a project<a class="anchor-link" href="#An-outline-of-a-project">¶</a>
 </h4>
 <p>For an open source project like this, I like to start by creating a new repo on GitHub, so that all my development is done under version control. I also like that GitHub lets me initialise the repo by choosing a standard FOSS license, so I don't have to go and find a copy myself. Personally, I normally choose the MIT license, but that is up to you.</p>
 <p>Once I have cloned the repository on to my development machine, I rough out the basic structure of the project, which looks something like this:</p>
@@ -102,10 +117,10 @@
   LICENSE
   README.rst
   setup.py</code></pre>
-<h5 id="docs/">docs/<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#docs/">¶</a>
+<h5 id="docs/">docs/<a class="anchor-link" href="#docs/">¶</a>
 </h5>
 <p>If you want anybody to consider using your code, robust documentation is going to be essential. Some small projects seem to think they can get away with putting everything in the README, but do yourself and everyone else a favour and get your docs set up properly at the start. I like to use Sphinx and ReadTheDocs.io, and will be explaining how to use them in an upcoming post.</p>
-<h5 id="pylcmodel/">pylcmodel/<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#pylcmodel/">¶</a>
+<h5 id="pylcmodel/">pylcmodel/<a class="anchor-link" href="#pylcmodel/">¶</a>
 </h5>
 <p>This is where your actual code will live. Before you write any actual code though, there are two important files to start with.</p>
 <p>The <code>__init__.py</code> file is what makes it a Python package, allowing the interpreter to recognise it as something which can be <code>import</code>ed. <code>__init__.py</code> can be left empty, but is normally used to import things from submodules into the package namespace. For example, in the Suspect package I have a class called MRSData, defined in the <code>mrsdata.py</code> module. Then in my <code>__init__.py</code> I have the line</p>
@@ -120,17 +135,17 @@
 
 <pre><code>from ._version import __version__</code></pre>
 <p>Now wherever you need to know the version you can simply access <code>pylcmodel.__version__</code>.</p>
-<h5 id="tests/">tests/<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#tests/">¶</a>
+<h5 id="tests/">tests/<a class="anchor-link" href="#tests/">¶</a>
 </h5>
 <p>Automated testing is something that many researchers seem to struggle with, there always seems to be something more important to work on. Once you get yourself into the habit though, you will find that it can really save you time once the project gets more complicated. I will be talking more about tests in my next post, so be sure to come back and check that out for some tips on how to make it easier to get started with testing.</p>
-<h5 id="LICENSE">LICENSE<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#LICENSE">¶</a>
+<h5 id="LICENSE">LICENSE<a class="anchor-link" href="#LICENSE">¶</a>
 </h5>
 <p>As I mentioned above, the license is the first file that I put into any new open-source project. My advice would always be to use an existing license rather than trying to write your own, there are plenty of options to choose from and potential users and collaborators are more likely to try out your code if it uses a well-known license.</p>
-<h5 id="README.rst">README.rst<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#README.rst">¶</a>
+<h5 id="README.rst">README.rst<a class="anchor-link" href="#README.rst">¶</a>
 </h5>
 <p>The readme is usually the first thing that someone looks at when they reach your GitHub page, so it is important to create a good impression. If you use Markdown or ReStructured Text then GitHub will display the formatted version, which is a great way to enhance it with headings, images etc. I personally like to use ReStructured Text for my readme to match my Sphinx documentation, and because it works very well with PyPI.</p>
 <h5 id="setup.py">
-<code>setup.py</code><a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#setup.py">¶</a>
+<code>setup.py</code><a class="anchor-link" href="#setup.py">¶</a>
 </h5>
 <p>If you want your project to be installable via <code>pip</code>, <code>setup.py</code> is what you use to do it: it is used both during the installation process and during the packaging process to put your project on PyPI. Let's start by taking a look at the current <code>setup.py</code> for Pylcmodel and then talk through the individual components:</p>
 
@@ -160,7 +175,7 @@ setup(
 <p>We start by importing some essential functions from the <code>setuptools</code> package, then read in the current version. <code>setup.py</code> is the one file where we can't import the package to access the version: since it usually runs before the package is installed, any dependencies your package tries to import won't be available and this will fail. Instead we simply read in the file and use the <code>exec</code> function to execute it, bring the <code>__version__</code> variable into the current namespace.</p>
 <p>The rest of <code>setup.py</code> is just passing arguments to the <code>setup()</code> function, which does all the work for us. Most of the parameters here are metadata used to describe the project on PyPI, and are pretty self-explanatory. <code>packages</code> is a list of all the packages and subpackages in the project which should be included in the distribution you will upload to PyPI. This can be maintained by hand for smaller projects, but the <code>find_packages()</code> function will build the list for you automatically by looking for any folders containing an <code>__init__.py</code>.</p>
 <p>Finally, <code>install_requires</code> and <code>test_requires</code> list the dependencies of your project, any other packages that should be installed for your package to work. The packages in <code>install_requires</code> are always installed at the same time as your package, while <code>test_requires</code> describes any additional packages which are necessary to run your test suite. The tests won't be included in the PyPI package, as most end users won't want to run them, but for anybody who is working on the code itself, <code>test_requires</code> will make sure they have everything they need to get your tests working.</p>
-<h4 id="Wrapping-it-up">Wrapping it up<a class="anchor-link" href="posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#Wrapping-it-up">¶</a>
+<h4 id="Wrapping-it-up">Wrapping it up<a class="anchor-link" href="#Wrapping-it-up">¶</a>
 </h4>
 <p>So that concludes this first part of my series on creating an open source Python project. We have taken a look at the basic structure of a project, set up a single source for version information, and seen a basic <code>setup.py</code> file. In the next article, I will be talking about automated testing, hope to see you then.</p>
 
@@ -184,66 +199,35 @@ setup(
   </div>
 
     </div>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title"><a href="posts/hello-and-welcome/" class="u-url">Hello and Welcome</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn">
-                Ben Rowland
-            </span></p>
-            <p class="dateline"><a href="posts/hello-and-welcome/" rel="bookmark"><time class="published dt-published" datetime="2016-09-27T20:11:53Z" title="2016-09-27 20:11">2016-09-27 20:11</time></a></p>
-                <p class="commentline">
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../hello-and-welcome/" rel="prev" title="Hello and Welcome">Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
         
-    <a href="posts/hello-and-welcome/#disqus_thread" data-disqus-identifier="cache/posts/hello-and-welcome.html">Comments</a>
-
-
-        </p>
-</div>
-    </header><div class="e-content entry-content">
-    <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
-
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Like most of the other researchers I know, I spend a lot of my time writing code, or reading other people's. But, again like most of my fellows, a lack of formal training, combined with the absence of any development infrastructure in the lab, tends to produce a lot of bad habits like code duplication, re-inventing the wheel and lack of comments.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I have spent the last six months converting much of the code I have produced during my research career to date from a messy accumulation of scripts and snippets into <a href="https://github.com/openmrslab/suspect">Suspect</a>, an open-source Python package with documentation, unit tests and even meaningful commit messages! Along the way I have also picked up some odds and ends about continuous integration, automated deployment and containerisation, among other things from the DevOps world.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The journey is far from over, but in the hope that it might be useful for others, or at least as a <a href="http://www.commitstrip.com/en/2016/01/18/what-idiot-wrote-this-code/">favour to my future self</a>, I am going to be writing about some of the things I have learned.</p>
-
-</div>
-</div>
-</div>
-    </div>
-  </div>
-
-    </div>
-    </article>
-</div>
-
-
-
         
-       <script>var disqus_shortname="bennyrowland-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script><script type="text/x-mathjax-config">
+        <div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="bennyrowland-github-io",
+            disqus_url="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/",
+        disqus_title="Creating an open source Python project Part 1: Laying the foundations",
+        disqus_identifier="cache/posts/creating-an-open-source-python-project-part-1-laying-the-foundations.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="https://disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script><script type="text/x-mathjax-config">
             MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
-            </script>
+            </script></article><script>var disqus_shortname="bennyrowland-github-io";(function(){var a=document.createElement("script");a.async=true;a.src="https://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
 </div>
         <!--End of body content-->
 
@@ -255,7 +239,7 @@ setup(
 </div>
 
 
-            <script src="assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+            <script src="../../assets/js/all-nocdn.js"></script><script>$('a.image-reference:not(.islink) img:not(.islink)').parent().colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
     moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates -->

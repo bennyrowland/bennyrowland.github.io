@@ -1,5 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Suspect Research</title><link>http://bennyrowland.github.io/</link><description>Scientific programming in Python and lessons learned along the way</description><atom:link rel="self" type="application/rss+xml" href="http://bennyrowland.github.io/rss.xml"></atom:link><language>en</language><lastBuildDate>Wed, 28 Sep 2016 22:30:17 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Hello and Welcome</title><link>http://bennyrowland.github.io/posts/hello-and-welcome/</link><dc:creator>Ben Rowland</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0"><channel><title>Suspect Research</title><link>http://bennyrowland.github.io/</link><description>Scientific programming in Python and lessons learned along the way</description><atom:link type="application/rss+xml" rel="self" href="http://bennyrowland.github.io/rss.xml"></atom:link><language>en</language><lastBuildDate>Wed, 05 Oct 2016 19:29:50 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Creating an open source Python project Part 1: Laying the foundations</title><link>http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/</link><dc:creator>Ben Rowland</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
+    &lt;div class="container" id="notebook-container"&gt;
+
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;I recently started work on a new open source Python project: Pylcmodel. LCModel is a widely used tool in the MRS community with an incredibly restrictive license tied to a specific CPU. Pylcmodel provides a local command line script with the same interface as LCModel, then forwards the data and commands over SSH to the remote machine where the real LCModel is installed, and brings the results back the same way.&lt;/p&gt;
+&lt;p&gt;The tool itself will be of very little interest to anybody outside of MRS, but what may be more interesting is the process of putting together a Python project, writing documentation, running tests and sharing it with the community. When I started putting together my first Python package - Suspect - I read lots of (often conflicting) advice from dozens of articles and blog posts, but never found anything that offered the complete picture. This time around, I feel like I have learned a thing or two, and can share some tips. Over the next several posts, I will be detailing all the steps I go through as I build the Pylcmodel package.&lt;/p&gt;
+&lt;h4 id="An-outline-of-a-project"&gt;An outline of a project&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#An-outline-of-a-project"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;For an open source project like this, I like to start by creating a new repo on GitHub, so that all my development is done under version control. I also like that GitHub lets me initialise the repo by choosing a standard FOSS license, so I don't have to go and find a copy myself. Personally, I normally choose the MIT license, but that is up to you.&lt;/p&gt;
+&lt;p&gt;Once I have cloned the repository on to my development machine, I rough out the basic structure of the project, which looks something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pylcmodel/
+  docs/
+  pylcmodel/
+    __init__.py
+    _version.py
+  tests/
+  LICENSE
+  README.rst
+  setup.py&lt;/code&gt;&lt;/pre&gt;
+&lt;h5 id="docs/"&gt;docs/&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#docs/"&gt;¶&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;If you want anybody to consider using your code, robust documentation is going to be essential. Some small projects seem to think they can get away with putting everything in the README, but do yourself and everyone else a favour and get your docs set up properly at the start. I like to use Sphinx and ReadTheDocs.io, and will be explaining how to use them in an upcoming post.&lt;/p&gt;
+&lt;h5 id="pylcmodel/"&gt;pylcmodel/&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#pylcmodel/"&gt;¶&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;This is where your actual code will live. Before you write any actual code though, there are two important files to start with.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;__init__.py&lt;/code&gt; file is what makes it a Python package, allowing the interpreter to recognise it as something which can be &lt;code&gt;import&lt;/code&gt;ed. &lt;code&gt;__init__.py&lt;/code&gt; can be left empty, but is normally used to import things from submodules into the package namespace. For example, in the Suspect package I have a class called MRSData, defined in the &lt;code&gt;mrsdata.py&lt;/code&gt; module. Then in my &lt;code&gt;__init__.py&lt;/code&gt; I have the line&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from .mrsdata import MRSData&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;which allows the MRSData to be accessed from &lt;code&gt;suspect.MRSData&lt;/code&gt; instead of &lt;code&gt;suspect.mrsdata.MRSData&lt;/code&gt; (which also still works).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_version.py&lt;/code&gt;, as the name suggests, contains information about which version of your code this is. Versioning your code is essential once you start to have other people using it, it makes it much easier to deliver new features in an orderly way, and you don't want to be chasing bugs through every commit in your repo.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;__version__ = "0.1"&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Using &lt;code&gt;_version.py&lt;/code&gt; gives you a single source of version information. This is useful because there are typically multiple places that require that info, such as in the documentation and for &lt;code&gt;setup.py&lt;/code&gt; (see below). If you try and maintain the correct version separately in those multiple places, you will inevitably get them out of sync, confusing everyone.&lt;/p&gt;
+&lt;p&gt;To make the version available from inside your project, add this line to the top of your &lt;code&gt;__init__.py&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from ._version import __version__&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now wherever you need to know the version you can simply access &lt;code&gt;pylcmodel.__version__&lt;/code&gt;.&lt;/p&gt;
+&lt;h5 id="tests/"&gt;tests/&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#tests/"&gt;¶&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;Automated testing is something that many researchers seem to struggle with, there always seems to be something more important to work on. Once you get yourself into the habit though, you will find that it can really save you time once the project gets more complicated. I will be talking more about tests in my next post, so be sure to come back and check that out for some tips on how to make it easier to get started with testing.&lt;/p&gt;
+&lt;h5 id="LICENSE"&gt;LICENSE&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#LICENSE"&gt;¶&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;As I mentioned above, the license is the first file that I put into any new open-source project. My advice would always be to use an existing license rather than trying to write your own, there are plenty of options to choose from and potential users and collaborators are more likely to try out your code if it uses a well-known license.&lt;/p&gt;
+&lt;h5 id="README.rst"&gt;README.rst&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#README.rst"&gt;¶&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;The readme is usually the first thing that someone looks at when they reach your GitHub page, so it is important to create a good impression. If you use Markdown or ReStructured Text then GitHub will display the formatted version, which is a great way to enhance it with headings, images etc. I personally like to use ReStructured Text for my readme to match my Sphinx documentation, and because it works very well with PyPI.&lt;/p&gt;
+&lt;h5 id="setup.py"&gt;&lt;code&gt;setup.py&lt;/code&gt;&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#setup.py"&gt;¶&lt;/a&gt;&lt;/h5&gt;&lt;p&gt;If you want your project to be installable via &lt;code&gt;pip&lt;/code&gt;, &lt;code&gt;setup.py&lt;/code&gt; is what you use to do it: it is used both during the installation process and during the packaging process to put your project on PyPI. Let's start by taking a look at the current &lt;code&gt;setup.py&lt;/code&gt; for Pylcmodel and then talk through the individual components:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from setuptools import setup, find_packages
+
+with open('./pylcmodel/_version.py') as f:
+    exec(f.read())
+
+setup(
+    name='pylcmodel',
+    version='__version__',
+    packages=find_packages(),
+    url='https://github.com/openmrslab/pylcmodel.git',
+    license='MIT',
+    author='bennyrowland',
+    author_email='my email',
+    description='Local CLI to forward lcmodel commands to remote machine',
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3'
+    ],
+    install_requires=['parsley'],
+    test_requires=['pytest']
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We start by importing some essential functions from the &lt;code&gt;setuptools&lt;/code&gt; package, then read in the current version. &lt;code&gt;setup.py&lt;/code&gt; is the one file where we can't import the package to access the version: since it usually runs before the package is installed, any dependencies your package tries to import won't be available and this will fail. Instead we simply read in the file and use the &lt;code&gt;exec&lt;/code&gt; function to execute it, bring the &lt;code&gt;__version__&lt;/code&gt; variable into the current namespace.&lt;/p&gt;
+&lt;p&gt;The rest of &lt;code&gt;setup.py&lt;/code&gt; is just passing arguments to the &lt;code&gt;setup()&lt;/code&gt; function, which does all the work for us. Most of the parameters here are metadata used to describe the project on PyPI, and are pretty self-explanatory. &lt;code&gt;packages&lt;/code&gt; is a list of all the packages and subpackages in the project which should be included in the distribution you will upload to PyPI. This can be maintained by hand for smaller projects, but the &lt;code&gt;find_packages()&lt;/code&gt; function will build the list for you automatically by looking for any folders containing an &lt;code&gt;__init__.py&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, &lt;code&gt;install_requires&lt;/code&gt; and &lt;code&gt;test_requires&lt;/code&gt; list the dependencies of your project, any other packages that should be installed for your package to work. The packages in &lt;code&gt;install_requires&lt;/code&gt; are always installed at the same time as your package, while &lt;code&gt;test_requires&lt;/code&gt; describes any additional packages which are necessary to run your test suite. The tests won't be included in the PyPI package, as most end users won't want to run them, but for anybody who is working on the code itself, &lt;code&gt;test_requires&lt;/code&gt; will make sure they have everything they need to get your tests working.&lt;/p&gt;
+&lt;h4 id="Wrapping-it-up"&gt;Wrapping it up&lt;a class="anchor-link" href="http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/#Wrapping-it-up"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;So that concludes this first part of my series on creating an open source Python project. We have taken a look at the basic structure of a project, set up a single source for version information, and seen a basic &lt;code&gt;setup.py&lt;/code&gt; file. In the next article, I will be talking about automated testing, hope to see you then.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [ ]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</description><guid>http://bennyrowland.github.io/posts/creating-an-open-source-python-project-part-1-laying-the-foundations/</guid><pubDate>Fri, 30 Sep 2016 19:08:03 GMT</pubDate></item><item><title>Hello and Welcome</title><link>http://bennyrowland.github.io/posts/hello-and-welcome/</link><dc:creator>Ben Rowland</dc:creator><description>&lt;div tabindex="-1" id="notebook" class="border-box-sizing"&gt;
     &lt;div class="container" id="notebook-container"&gt;
 
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
